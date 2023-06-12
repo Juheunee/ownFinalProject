@@ -1,0 +1,5 @@
+package com.kh.petsisters.payment.controller;
+
+public class Payment {
+
+}

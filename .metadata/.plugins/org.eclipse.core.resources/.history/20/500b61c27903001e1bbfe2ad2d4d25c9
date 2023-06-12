@@ -1,0 +1,23 @@
+package com.kh.petsisters.inquiry.model.vo;
+
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
+@NoArgsConstructor
+@Setter
+@Getter
+@ToString
+public class Inquiry {
+	
+	private int qNo;
+	private String qTitle; // 문의글 제목
+	private String qContent; // 문의글 내용
+	private String qCreateDate; // 문의글 작성일
+	private String aContent; // 답변내용
+	private String aCreateDate; // 답변일
+	private String status;
+	private int userNo;
+
+}

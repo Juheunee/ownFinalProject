@@ -1,0 +1,15 @@
+package com.kh.petsisters.payment.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
+
+@Controller
+public class PaymentController {
+
+	@PostMapping("/pay")
+    public String processPayment() {
+        // 여기에 결제 처리 로직을 추가합니다.
+        return "payment-success"; // 결제 성공 페이지로 이동
+    }
+	
+}

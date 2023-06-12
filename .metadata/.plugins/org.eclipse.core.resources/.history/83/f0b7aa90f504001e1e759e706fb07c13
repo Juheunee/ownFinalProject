@@ -1,0 +1,23 @@
+package com.kh.petsisters.payment.model.service;
+
+import java.util.List;
+
+import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.kh.petsisters.common.model.vo.PageInfo;
+import com.kh.petsisters.inquiry.model.dao.InquiryDao;
+import com.kh.petsisters.inquiry.model.vo.CSReply;
+import com.kh.petsisters.inquiry.model.vo.Inquiry;
+
+@Service
+public class PaymentServiceImpl implements PaymentService {
+
+	@Autowired
+	private PaymentDao paymentDao;
+	
+	@Autowired
+	private SqlSessionTemplate sqlSession;
+
+}

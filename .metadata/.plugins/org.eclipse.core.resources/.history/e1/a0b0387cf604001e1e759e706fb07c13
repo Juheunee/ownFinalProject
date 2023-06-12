@@ -1,0 +1,10 @@
+package com.kh.petsisters.payment.model.service;
+
+import java.util.List;
+
+import com.kh.petsisters.common.model.vo.PageInfo;
+
+public interface PaymentService {
+
+	
+}

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd" >
+<mapper namespace="inquiryMapper">
+
+	<!-- Inquiry 테이블로부터 조회된 ResultSet을 Inquiry 객체로 가공해주는 resultMap -->
+	<resultMap id="inquiryResultSet" type="inquiry">
+		<result column="I_NO" property="inquiryNo" />
+		<result column="I_TITLE" property="inquiryTitle" />
+		<result column="I_CONTENT" property="inquiryContent" />
+		<result column="CREATE_DATE" property="createDate" />
+		<result column="STATUS" property="status" />
+		<result column="USER_NO" property="userNo" />
+		
+		<result column="FILE_PATH" property="filePath" />
+	</resultMap>
+
+	<resultMap id="csreplyResultSet" type="csReply">
+		<result column="REP_NO" property="repNo" />
+		<result column="REP_CONTENT" property="repContent" />
+		<result column="CREATE_DATE" property="createDate" />
+		<result column="STATUS" property="status" />
+		<result column="USER_NO" property="userNo" />
+		<result column="REF_INO" property="refIno" />
+	</resultMap>
+	
+	<!-- 1:1 문의글 리스트를 구해주는 쿼리문 -->
+	<select id="selectList" resultMap="inquiryResultSet" parameterType="member">
+		SELECT I_TITLE
+			 , TO_CHAR(CREATE_DATE, 'YYYY-MM-DD') AS "CREATE_DATE"
+			 , USER_NO
+	 	  FROM INQUIRY
+	 	 WHERE STATUS = 'Y'
+	 	   AND USER_NO = #{userNo}
+	</select>
+	
+	<!-- 1:1문의글 작성용 쿼리문 -->
+	<insert id="insertInquiry" parameterType="inquiry">
+		INSERT INTO INQUIRY(I_NO
+						  , I_TITLE		
+						  , I_CONTENT
+						  , FILE_PATH)
+					 VALUES(SEQ_INQUIRY.NEXTVAL
+						  , #{inquiryTitle}
+						  , #{inquiryContent}
+						  , #{filePath})
+	</insert>
+	
+	<!-- 1:1문의글 상세조회용 쿼리문 -->
+	<select id="selectInquiry" parameterType="_int"	resultMap="inquiryResultSet">
+		SELECT
+		I_NO, I_TITLE, TO_CHAR(CREATE_DATE, 'YYYY-MM-DD') AS "CREATE_DATE", I_CONTENT, FILE_PATH
+		  FROM INQUIRY
+		 WHERE I_NO = #{inquiryNo}
+	</select>
+	
+	<!-- 게시글 삭제용 쿼리문 -->
+	<update id="deleteBoard" parameterType="_int">
+		UPDATE BOARD
+		   SET STATUS = 'N'
+		 WHERE BOARD_NO = #{boardNo}
+	</update>
+	
+	<!-- 댓글 리스트 조회용 쿼리문 -->
+	<select id="selectReplyList" parameterType="_int" resultMap="replyResultSet">
+		SELECT REPLY_NO
+			 , REPLY_WRITER
+			 , REPLY_CONTENT
+			 , TO_CHAR(CREATE_DATE, 'YYYY-MM-DD') AS "CREATE_DATE"
+		  FROM REPLY
+		 WHERE STATUS = 'Y'
+		   AND REF_BNO = #{boardNo}
+		 ORDER BY REPLY_NO DESC
+	</select>
+	
+	<!-- 댓글 작성용 쿼리문 -->
+	<insert id="insertReply" parameterType="csReply">
+		INSERT INTO REPLY(REPLY_NO
+						, REPLY_CONTENT
+						, REF_BNO
+						, REPLY_WRITER)
+		  		   VALUES(SEQ_RNO.NEXTVAL
+		  		   		, #{replyContent}
+		  		   		, #{refBoardNo}
+		  		   		, #{replyWriter})
+	</insert>
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,23 @@
+package com.kh.petsisters.inquiry.model.service;
+
+import java.util.ArrayList;
+
+import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.kh.petsisters.common.model.vo.PageInfo;
+import com.kh.petsisters.notice.model.dao.NoticeDao;
+import com.kh.petsisters.notice.model.vo.Notice;
+
+@Service
+public class InquiryServiceImpl implements InquiryService {
+
+	@Autowired
+	private NoticeDao noticeDao;
+	
+	@Autowired
+	private SqlSessionTemplate sqlSession;
+
+
+}
